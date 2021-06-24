@@ -20,8 +20,8 @@ namespace AES_Tool.src
         void Cmds()
         {
             WriteLine("Start with 'aes' command to recall other commands.");
-            WriteLine("Encrypt      aes -e [folder|file|text] {aes -e c:\\foldername, aes -e c:\\filename.txt, aes -e 'clear text'}");
-            WriteLine("Decrypt      aes -d [folder|file|text] {aes -e c:\\foldername, aes -e c:\\filename.txt, aes -e 'chyper text'}");
+            WriteLine("Encrypt      aes -e [folder|file|text] {aes -e c:\\foldername|extension, aes -e c:\\filename.txt, aes -e 'clear text'}");
+            WriteLine("Decrypt      aes -d [folder|file|text] {aes -e c:\\foldername|extension, aes -e c:\\filename.txt, aes -e 'chyper text'}");
         }
 
         public void HelpCommand() => Cmds();
@@ -35,16 +35,23 @@ namespace AES_Tool.src
                     var folder = new DirectoryInfo(Args); 
                     if (folder.GetFiles().Length != 0)
                     {
-                        // folder
+                        var check = Args.Split('|');
+                        string ext = check[1];
+                        var listFile = Directory.GetFiles(Args, $"*.{ext}", SearchOption.AllDirectories);
+                        foreach(string file in listFile)
+                        {
+                            WriteLine("----------------- STARTING PROCESS -----------------");
+                            System.Threading.Thread.Sleep(500);
+                            aes.EncryptFile(Args, Args, Password);
+                            WriteLine($"{Args} =====> AES Done!");
+                            WriteLine("----------------- END PROCESS -----------------" + nl);
+                        }
                     }
-                    else 
-                    {
-                        WriteLine("The directory is empty.");
-                    }
+                    else WriteLine("The directory is empty.");
                 }
                 else
                 {
-                    WriteLine("Start to encrypting file...");
+                    WriteLine("START TO ENCRYPTING FILE...");
                     aes.EncryptFile(Args, Args, Password);
                     WriteLine($"DONE! Check in {Args}" + nl);
                 }
@@ -53,7 +60,7 @@ namespace AES_Tool.src
             {
                 string plainText = Args.Replace("'", "").Trim();
                 string chiperText = aes.EncryptText(plainText, Password);
-                WriteLine("----------------- CHIPER TEXT BELOW-----------------");
+                WriteLine("----------------- CHIPER TEXT BELOW -----------------");
                 WriteLine(chiperText + nl);
             }
         }
@@ -67,16 +74,23 @@ namespace AES_Tool.src
                     var folder = new DirectoryInfo(Args);
                     if (folder.GetFiles().Length != 0) 
                     {
-                        // folder
+                        var check = Args.Split('|');
+                        string ext = check[1];
+                        var listFile = Directory.GetFiles(Args, $"*.{ext}", SearchOption.AllDirectories);
+                        foreach (string file in listFile)
+                        {
+                            WriteLine("----------------- STARTING PROCESS -----------------");
+                            System.Threading.Thread.Sleep(500);
+                            aes.DecryptFile(Args, Args, Password);
+                            WriteLine($"{Args} =====> AES Done!");
+                            WriteLine("----------------- END PROCESS -----------------" + nl);
+                        }
                     }
-                    else 
-                    {
-                        WriteLine("The directory is empty.");
-                    }
+                    else WriteLine("The directory is empty.");
                 }
                 else
                 {
-                    WriteLine("Start to decrypting file...");
+                    WriteLine("START TO DECRYPTING FILE...");
                     aes.DecryptFile(Args, Args, Password);
                     WriteLine($"DONE! Check in {Args}" + nl);
                 }

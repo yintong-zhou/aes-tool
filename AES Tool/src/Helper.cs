@@ -13,9 +13,9 @@ namespace AES_Tool.src
             WriteLine(@"| | | || |___/\__/ /   | | (_) | (_) | |");
             WriteLine(@"\_| |_/\____/\____/    \_/\___/ \___/|_|");
             WriteLine("");
-            WriteLine("Version 0.0.1-alpha");
-
+            WriteLine("Version 0.0.2-alpha");
         }
+
     }
 }
 
