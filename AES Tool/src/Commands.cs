@@ -32,20 +32,26 @@ namespace AES_Tool.src
             {
                 if (!File.Exists(Args)) 
                 {
-                    var folder = new DirectoryInfo(Args); 
+                    var check = Args.Split('|');
+                    var folder = new DirectoryInfo(check[0]);
+                    string ext = check[1];
+
                     if (folder.GetFiles().Length != 0)
                     {
-                        var check = Args.Split('|');
-                        string ext = check[1];
-                        var listFile = Directory.GetFiles(Args, $"*.{ext}", SearchOption.AllDirectories);
-                        foreach(string file in listFile)
+                        if (check.Length > 1)
                         {
+                            var listFile = Directory.GetFiles(folder.FullName, $"*.{ext}", SearchOption.AllDirectories);
                             WriteLine("----------------- STARTING PROCESS -----------------");
-                            System.Threading.Thread.Sleep(500);
-                            aes.EncryptFile(Args, Args, Password);
-                            WriteLine($"{Args} =====> AES Done!");
+                            foreach (string file in listFile)
+                            {
+                                System.Threading.Thread.Sleep(500);
+                                aes.EncryptFile(file, file, Password);
+                                WriteLine($"{file} =====> AES Done!");
+                            }
                             WriteLine("----------------- END PROCESS -----------------" + nl);
                         }
+                        else WriteLine("Warning! Specific the files extension.");
+                        
                     }
                     else WriteLine("The directory is empty.");
                 }
@@ -71,20 +77,26 @@ namespace AES_Tool.src
             {
                 if (!File.Exists(Args)) 
                 {
-                    var folder = new DirectoryInfo(Args);
-                    if (folder.GetFiles().Length != 0) 
+                    var check = Args.Split('|');
+                    var folder = new DirectoryInfo(check[0]);
+                    string ext = check[1];
+
+                    if (folder.GetFiles().Length != 0)
                     {
-                        var check = Args.Split('|');
-                        string ext = check[1];
-                        var listFile = Directory.GetFiles(Args, $"*.{ext}", SearchOption.AllDirectories);
-                        foreach (string file in listFile)
+                        if (check.Length > 1)
                         {
+                            var listFile = Directory.GetFiles(folder.FullName, $"*.{ext}", SearchOption.AllDirectories);
                             WriteLine("----------------- STARTING PROCESS -----------------");
-                            System.Threading.Thread.Sleep(500);
-                            aes.DecryptFile(Args, Args, Password);
-                            WriteLine($"{Args} =====> AES Done!");
+                            foreach (string file in listFile)
+                            {
+                                System.Threading.Thread.Sleep(500);
+                                aes.DecryptFile(file, file, Password);
+                                WriteLine($"{file} =====> DECRYPT Done!");
+                            }
                             WriteLine("----------------- END PROCESS -----------------" + nl);
                         }
+                        else WriteLine("Warning! Specific the files extension.");
+
                     }
                     else WriteLine("The directory is empty.");
                 }
