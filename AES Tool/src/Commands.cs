@@ -16,12 +16,14 @@ namespace AES_Tool.src
         public string Help() => "help";
         public string Encrypt() => "-e";
         public string Decrypt() => "-d";
+        public string Remote() => "-r";
         
         void Cmds()
         {
-            WriteLine("Start with 'aes' command to recall other commands.");
+            WriteLine("Start with 'aes' command to recall other commands." + nl);
             WriteLine("Encrypt      aes -e [folder|file|text] {aes -e c:\\foldername|extension, aes -e c:\\filename.txt, aes -e 'clear text'}");
-            WriteLine("Decrypt      aes -d [folder|file|text] {aes -e c:\\foldername|extension, aes -e c:\\filename.txt, aes -e 'chyper text'}");
+            WriteLine("Decrypt      aes -d [folder|file|text] {aes -d c:\\foldername|extension, aes -d c:\\filename.txt, aes -d 'chyper text'}");
+            WriteLine("Remote       aes -r [remote directory] {aes -r \\\\192.168.1.100\\directoryname}");
         }
 
         public void HelpCommand() => Cmds();

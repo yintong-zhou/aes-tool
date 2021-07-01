@@ -21,23 +21,19 @@ namespace AES_Tool
                 string[] cmd = input.Split(' ');
                 if(cmd.Length > 1)
                 {
-                    if (cmd[1] == cmds.Encrypt())
+                    if(cmd[1] != cmds.Remote())
                     {
-                        Write("Password Key: ");
-                        string Password = ReadLine();
-                        cmds.EncryptCommand(cmd[2], Password);
-                        goto START;
-                    }
-                    else if (cmd[1] == cmds.Decrypt())
-                    {
-                        Write("Password Key: ");
-                        string Password = ReadLine();
-                        cmds.DecryptCommand(cmd[2], Password);
+                        Cryptography(cmd);
                         goto START;
                     }
                     else
                     {
-                        WriteLine("Command is not found, using 'help' to show the commands.");
+                        Write(">>> Username: ");
+                        string user = ReadLine();
+                        Write(">>> Password: ");
+                        string pwd = ReadLine();
+
+                        WriteLine($"Connection to {cmd[2]}");
                         goto START;
                     }
                 }
@@ -58,6 +54,23 @@ namespace AES_Tool
                 WriteLine("Start with 'aes' command or write 'help' to check the commands.");
                 goto START;
             }
+        }
+
+        static void Cryptography(string[] command)
+        {
+            if (command[1] == cmds.Encrypt())
+            {
+                Write("Password Key: ");
+                string Password = ReadLine();
+                cmds.EncryptCommand(command[2], Password);
+            }
+            else if (command[1] == cmds.Decrypt())
+            {
+                Write("Password Key: ");
+                string Password = ReadLine();
+                cmds.DecryptCommand(command[2], Password);
+            }
+            else WriteLine("Command is not found, using 'help' to show the commands.");
         }
     }
 }
