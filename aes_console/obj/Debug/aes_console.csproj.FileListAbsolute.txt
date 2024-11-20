@@ -1,0 +1,7 @@
+C:\Devs\aes_console\aes_console\bin\Debug\aes_console.exe.config
+C:\Devs\aes_console\aes_console\bin\Debug\aes_console.exe
+C:\Devs\aes_console\aes_console\bin\Debug\aes_console.pdb
+C:\Devs\aes_console\aes_console\obj\Debug\aes_console.csproj.AssemblyReference.cache
+C:\Devs\aes_console\aes_console\obj\Debug\aes_console.csproj.CoreCompileInputs.cache
+C:\Devs\aes_console\aes_console\obj\Debug\aes_console.exe
+C:\Devs\aes_console\aes_console\obj\Debug\aes_console.pdb
